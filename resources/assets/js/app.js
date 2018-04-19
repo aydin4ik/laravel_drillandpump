@@ -12,6 +12,9 @@ window.Vue = require('vue');
 import Buefy from 'buefy';
 
 Vue.use(Buefy);
+
+// Parallax-js
+import Parallax from 'parallax-js';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -21,3 +24,14 @@ Vue.use(Buefy);
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 
+var app = new Vue({
+
+    el: '#app',
+    data: {}
+});
+
+var scene = document.getElementById('scene');
+var parallaxInstance = new Parallax(scene, {
+  relativeInput: true,
+  hoverOnly: true,
+});

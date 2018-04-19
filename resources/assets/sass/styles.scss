@@ -1,0 +1,25 @@
+.slide{
+    height: 550px;
+    overflow: hidden;
+    pointer-events: all !important;
+    &-background{
+        width: 120%;
+        left: -50px !important;
+        top: -50px !important;
+
+    }
+
+    &-item{
+        bottom: 0 !important;
+        top: auto !important;
+
+    }
+
+    &-header{
+        max-width: 550px;
+        top: 100px !important;
+        left: auto !important;
+        right: 50px !important;
+        
+    }
+}
