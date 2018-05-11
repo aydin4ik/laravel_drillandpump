@@ -31,3 +31,17 @@ Breadcrumbs::register('password.reset', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
     $breadcrumbs->push('Reset Password', route('password.reset'));
 });
+
+
+// Manage > Dashboard
+Breadcrumbs::register('manage', function ($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Manage', route('manage'));
+    // $breadcrumbs->push('Dashboard', route('manage.dashboard'));
+});
+
+
+Breadcrumbs::register('user', function ($breadcrumbs, $user) {
+    $breadcrumbs->parent('manage');
+    $breadcrumbs->push($user->name, route('users', $user));
+});

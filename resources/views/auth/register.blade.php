@@ -11,14 +11,14 @@
                 <div class="card-content">
                     <div class="field has-text-centered ">
                         <img class="image is-64x64" src="{{asset('images/drillandpump-logo.png')}}" alt="" style="display:inline">
-                        <h1 class="title has-text-weight-light">{{ __('Register') }}</h1>
+                        <h1 class="title has-text-weight-light">{{ __('navbar.register') }}</h1>
                     </div>
                     
     
                 <form action="{{route('register')}}" method="POST" role="form">
                     @csrf
                     <div class="field">
-                        <label for="email" class="label">Email Address</label>
+                        <label for="email" class="label">{{ __('auth.email') }}</label>
                         <p class="control">
                             <input class="input {{$errors->has('email') ? 'is-danger' : ''}}" value="{{old('email')}}" type="text" name="email" id="email" placeholder="name@example.com" autofocus>
                         </p>
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="name" class="label">Your name</label>
+                        <label for="name" class="label">{{ __('auth.name') }}</label>
                         <p class="control">
                             <input class="input {{$errors->has('name') ? 'is-danger' : ''}}" value="{{old('name')}}" type="text" name="name" id="name">
                         </p>
@@ -38,7 +38,7 @@
                     </div>
     
                     <div class="field">
-                        <label for="password" class="label">Password</label>
+                        <label for="password" class="label">{{ __('auth.password') }}</label>
                         <p class="control">
                             <input class="input {{$errors->has('password') ? 'is-danger' : ''}}" type="password" name="password" id="password">
                         </p>
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="password-confirm" class="label">{{ __('Confirm Password') }}</label>
+                        <label for="password-confirm" class="label">{{ __('auth.confirmPassword') }}</label>
                         <p class="control">
                             <input class="input {{$errors->has('password') ? 'is-danger' : ''}}" type="password" name="password_confirmation" id="password-confirm">
                         </p>
@@ -59,7 +59,7 @@
     
                     
                     <div class="field">
-                        <button class="button is-primary is-outlined is-full-width">{{ __('Register') }}</button>
+                        <button class="m-t-10 button is-primary is-outlined is-full-width">{{ __('navbar.register') }}</button>
                     </div>
                 </form>
     
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="field has-text-centered m-t-5">
-                <a href="{{route('login')}}" class="link is-size-7">Already have an Account?</a> 
+                <a href="{{route('login')}}" class="link is-size-7">{{ __('auth.alreadyHave') }}</a> 
             </div>
         </div>
     </div>

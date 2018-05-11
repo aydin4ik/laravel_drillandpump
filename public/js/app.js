@@ -1005,18 +1005,13 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy___default.a);
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-
-var app = new Vue({
-
-  el: '#app',
-  data: {}
-});
-
 var scene = document.getElementById('scene');
-var parallaxInstance = new __WEBPACK_IMPORTED_MODULE_1_parallax_js___default.a(scene, {
-  relativeInput: true,
-  hoverOnly: true
-});
+if (scene != null) {
+  var parallaxInstance = new __WEBPACK_IMPORTED_MODULE_1_parallax_js___default.a(scene, {
+    relativeInput: true,
+    hoverOnly: true
+  });
+}
 
 /***/ }),
 /* 11 */

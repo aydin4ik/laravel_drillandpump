@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Drill and pump</title>
+    <title>Drill and Pump - MANAGEMENT</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -18,8 +18,9 @@
 
     @include('partials.nav.main')
 
+    @include('partials.nav.manage')
 
-    <div id="app">
+    <div class="management-area" id="app">
       @yield('content')
     </div>
 

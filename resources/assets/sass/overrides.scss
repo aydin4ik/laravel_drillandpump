@@ -1,15 +1,34 @@
 .has-dropdown{
     .navbar-dropdown{
-        min-width: 200px;        
-        
-    }
+        min-width: 200px;
 
+        .navbar-item img{
+            max-height: 1rem;
+        }
+    }
+}
+
+.navbar-link{
+    padding-right: 0.7em;
+}
+
+.navbar-link::after{
+    display: none;
 }
 
 .navbar-item img{
     max-height: 2.5rem;
 }
 
+.navbar-link img{
+    max-height: 1rem;
+}
+
+
+
+.navbar-lang{
+    text-transform: capitalize;
+}
 
 .slide-header{
     .is-size-1{
@@ -23,3 +42,9 @@
         letter-spacing: -0.2rem;
     }
 }
+
+hr{
+    background-color: #ccc;
+    height: 1px;
+}
+

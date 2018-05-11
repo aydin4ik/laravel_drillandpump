@@ -23,15 +23,10 @@ import Parallax from 'parallax-js';
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-
-var app = new Vue({
-
-    el: '#app',
-    data: {}
-});
-
 var scene = document.getElementById('scene');
-var parallaxInstance = new Parallax(scene, {
-  relativeInput: true,
-  hoverOnly: true,
-});
+if( scene != null){
+  var parallaxInstance = new Parallax(scene, {
+    relativeInput: true,
+    hoverOnly: true,
+  });
+}

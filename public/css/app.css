@@ -10,8 +10,8 @@
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url(/fonts/vendor/font-awesome/fontawesome-webfont.eot?674f50d287a8c48dc19ba404d20fe713);
-  src: url(/fonts/vendor/font-awesome/fontawesome-webfont.eot?674f50d287a8c48dc19ba404d20fe713) format("embedded-opentype"), url(/fonts/vendor/font-awesome/fontawesome-webfont.woff2?af7ae505a9eed503f8b8e6982036873e) format("woff2"), url(/fonts/vendor/font-awesome/fontawesome-webfont.woff?fee66e712a8a08eef5805a46892932ad) format("woff"), url(/fonts/vendor/font-awesome/fontawesome-webfont.ttf?b06871f281fee6b241d60582ae9369b9) format("truetype"), url(/fonts/vendor/font-awesome/fontawesome-webfont.svg?912ec66d7572ff821749319396470bde) format("svg");
+  src: url(../fonts/vendor/font-awesome/fontawesome-webfont.eot?674f50d287a8c48dc19ba404d20fe713);
+  src: url(../fonts/vendor/font-awesome/fontawesome-webfont.eot?674f50d287a8c48dc19ba404d20fe713) format("embedded-opentype"), url(../fonts/vendor/font-awesome/fontawesome-webfont.woff2?af7ae505a9eed503f8b8e6982036873e) format("woff2"), url(../fonts/vendor/font-awesome/fontawesome-webfont.woff?fee66e712a8a08eef5805a46892932ad) format("woff"), url(../fonts/vendor/font-awesome/fontawesome-webfont.ttf?b06871f281fee6b241d60582ae9369b9) format("truetype"), url(../fonts/vendor/font-awesome/fontawesome-webfont.svg?912ec66d7572ff821749319396470bde) format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -11205,8 +11205,8 @@ a.navbar-item.is-active,
 }
 
 .pagination-link.is-current {
-  background-color: #3273dc;
-  border-color: #3273dc;
+  background-color: #2F5A64;
+  border-color: #2F5A64;
   color: #fff;
 }
 
@@ -17191,8 +17191,28 @@ label.panel-block:hover {
   min-width: 200px;
 }
 
+.has-dropdown .navbar-dropdown .navbar-item img {
+  max-height: 1rem;
+}
+
+.navbar-link {
+  padding-right: 0.7em;
+}
+
+.navbar-link::after {
+  display: none;
+}
+
 .navbar-item img {
   max-height: 2.5rem;
+}
+
+.navbar-link img {
+  max-height: 1rem;
+}
+
+.navbar-lang {
+  text-transform: capitalize;
 }
 
 .slide-header .is-size-1 {
@@ -17204,6 +17224,11 @@ label.panel-block:hover {
 .slide-header .is-size-2 {
   line-height: 2.2rem;
   letter-spacing: -0.2rem;
+}
+
+hr {
+  background-color: #ccc;
+  height: 1px;
 }
 
 .m-t-5 {
@@ -17597,9 +17622,9 @@ label.panel-block:hover {
 }
 
 .slide-background {
-  width: 120%;
-  left: -50px !important;
-  top: -50px !important;
+  width: 110%;
+  left: -60px !important;
+  top: -20px !important;
 }
 
 .slide-item {
@@ -17612,5 +17637,25 @@ label.panel-block:hover {
   top: 100px !important;
   left: auto !important;
   right: 50px !important;
+}
+
+.side-menu {
+  position: fixed;
+  height: 100vh;
+  width: 250px;
+  top: 3.5rem;
+  background-color: white;
+  overflow-y: scroll;
+}
+
+.management-area {
+  position: absolute;
+  top: 3.5rem;
+  left: 250px;
+  right: 0;
+}
+
+.flex-container {
+  margin: 25px;
 }
 
