@@ -17187,8 +17187,23 @@ label.panel-block:hover {
   background: rgba(255, 56, 96, 0.05);
 }
 
+.is-blurred {
+  background-color: transparent;
+}
+
+.is-blurred::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.8;
+  z-index: -1;
+}
+
 .has-dropdown .navbar-dropdown {
   min-width: 200px;
+  border-top: 2px solid #dbdbdb;
 }
 
 .has-dropdown .navbar-dropdown .navbar-item img {
@@ -17207,12 +17222,22 @@ label.panel-block:hover {
   max-height: 2.5rem;
 }
 
-.navbar-link img {
-  max-height: 1rem;
+.navbar-link .user-avatar {
+  height: 2.5rem;
+  width: 2.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #dbdbdb;
+  background-color: #2F5A64;
 }
 
 .navbar-lang {
   text-transform: capitalize;
+}
+
+.navbar-lang img {
+  max-height: 1rem;
 }
 
 .slide-header .is-size-1 {
@@ -17657,5 +17682,26 @@ hr {
 
 .flex-container {
   margin: 25px;
+}
+
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-list li {
+  margin-bottom: 1px;
+}
+
+.menu-list li ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.menu-list a.is-active {
+  background-color: #2F5A64;
+  color: white;
 }
 

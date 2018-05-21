@@ -18,3 +18,22 @@
     margin: 25px;
 }
 
+.submenu{
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-list li{
+    margin-bottom: 1px;
+}
+
+.menu-list li ul{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.menu-list a.is-active{
+    background-color: $primary;
+    color: white;
+}

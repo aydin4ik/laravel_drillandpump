@@ -127,7 +127,14 @@ class UserController extends Controller
         }
 
         $user->save();
-        $user->syncRoles(explode(',', $request->roles));
+
+        if($request->roles){
+        $user->syncRoles(explode(',', $request->roles));            
+        }else{
+            Session::flash('error', 'user must have at least one role');
+            return redirect()->back();
+        }
+
         return redirect()->route('users.index');
 
         // if($user->save()){

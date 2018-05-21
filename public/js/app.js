@@ -967,7 +967,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
-module.exports = __webpack_require__(40);
+module.exports = __webpack_require__(41);
 
 
 /***/ }),
@@ -997,6 +997,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy___default.a);
 
 // Parallax-js
 
+
+__webpack_require__(40);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -44256,6 +44258,40 @@ module.exports = Parallax;
 
 /***/ }),
 /* 40 */
+/***/ (function(module, exports) {
+
+var accordions = document.getElementsByClassName('has-submenu');
+
+for (var index = 0; index < accordions.length; index++) {
+    var accordion = accordions[index];
+
+    if (accordion.classList.contains('is-active')) {
+        var submenu = accordion.nextElementSibling;
+        submenu.style.maxHeight = submenu.scrollHeight + "px";
+        submenu.style.marginTop = "0.75em";
+        submenu.style.marginBottom = "0.75em";
+    }
+
+    accordion.onclick = function () {
+
+        this.classList.toggle('is-active');
+        var submenu = this.nextElementSibling;
+        if (submenu.style.maxHeight) {
+            // menu is open, we need to close it
+            submenu.style.maxHeight = null;
+            submenu.style.marginTop = null;
+            submenu.style.marginBottom = null;
+        } else {
+            // menu is closed, we need to open it
+            submenu.style.maxHeight = submenu.scrollHeight + "px";
+            submenu.style.marginTop = "0.75em";
+            submenu.style.marginBottom = "0.75em";
+        }
+    };
+}
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

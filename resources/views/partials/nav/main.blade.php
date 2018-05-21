@@ -1,4 +1,4 @@
-<nav class="navbar is-primary has-text-weight-light has-shadow is-fixed-top">
+<nav class="navbar is-blurred has-text-weight-normal has-shadow is-fixed-top">
 
     <div class="navbar-brand is-uppercase">
         <a class="navbar-item" href="{{route('home')}}">
@@ -28,7 +28,7 @@
                     Tricone Bits
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                PDC Bits
+                    PDC Bits
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
                     BHA Constituent Elements
@@ -85,20 +85,32 @@
             @else
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link" href="#">
-                    Hey {{Auth::user()->name}}
+                    @if (file_exists('images/'. Auth::user()->email .'.png'))
+                        <img src="{{asset('images/' . Auth::user()->email . '.png')}}" alt="{{Auth::user()->name}}" class="m-r-10 user-avatar">
+                    @else
+                    <img src="{{asset('images/user.png')}}" alt="{{Auth::user()->name}}" class="m-r-10 user-avatar">                    
+                    @endif
+                    {{Auth::user()->name}}
+                    <i class="m-l-5 fa fa-angle-down" aria-hidden="true"></i>                    
                 </a>
                 <div class="navbar-dropdown has-text-weight-normal is-right">
                     <a class="navbar-item" href="/documentation/overview/start/">
-                    Profile
+                        <i class="m-r-5 fa fa-user-circle-o has-text-primary is-size-5" aria-hidden="true"></i>                        
+                        Profile
                     </a>
                     <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                    Notifications
+                        <i class="m-r-5 fa fa-bell has-text-primary is-size-5" aria-hidden="true"></i>  
+                        Notifications
                     </a>
                     <a class="navbar-item" href="{{route('manage')}}">
-                    Manage
+                        <i class="m-r-5 fa fa-cogs has-text-primary is-size-5" aria-hidden="true"></i>
+                        Manage
                     </a>
                     <hr class="navbar-divider">
-                    <a class="navbar-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>                                 
+                    <a class="navbar-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="m-r-5 fa fa-sign-out has-text-primary is-size-5" aria-hidden="true"></i>
+                        Logout
+                    </a>                                 
                 </div>
             </div>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

@@ -20,14 +20,13 @@ Auth::routes();
 Route::prefix('manage')->middleware('role:superadministrator|administrator|editor|author|contributor|')->group(function (){
     Route::get('/', 'ManageController@index')->name('manage');
     Route::get('/dashboard', 'ManageController@dashboard')->name('manage.dashboard');
+    Route::get('/locale/{locale}', 'LocalizationController@index');
     Route::resource('/users', 'UserController');
     Route::resource('/permissions', 'PermissionController', ['except' => 'destroy']);
     Route::resource('/roles', 'RoleController', ['except' => 'destroy']);
+
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('locale/{locale}', function($locale) {
-    Session::put('locale', $locale);
-    return redirect()->back();
-});
+Route::get('/locale/{locale}', 'LocalizationController@index');
