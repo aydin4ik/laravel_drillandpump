@@ -28,3 +28,16 @@ for (let index = 0; index < accordions.length; index++) {
     }
     
 }
+
+const dropdowns = document.getElementsByClassName('has-dropdown');
+const navbarUser = document.getElementsByClassName('navbar-user');
+
+
+
+
+for (let index = 0; index < dropdowns.length; index++) {
+        dropdowns[index].onclick = function (e) {
+            this.classList.toggle('is-active');             
+        }
+
+}

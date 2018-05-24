@@ -17201,9 +17201,41 @@ label.panel-block:hover {
   z-index: -1;
 }
 
+.has-dropdown .navbar-user {
+  display: block;
+  max-width: 0;
+  max-height: 1.5rem;
+  overflow: hidden;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.has-dropdown:hover .navbar-user {
+  max-width: 14rem;
+  max-height: 1.5rem;
+}
+
 .has-dropdown .navbar-dropdown {
   min-width: 200px;
   border-top: 2px solid #dbdbdb;
+}
+
+.has-dropdown .navbar-dropdown a.navbar-item {
+  position: relative;
+}
+
+.has-dropdown .navbar-dropdown a.navbar-item::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-left: 3px solid #2F5A64;
+  left: 0;
+  opacity: 0;
+}
+
+.has-dropdown .navbar-dropdown a.navbar-item:hover::after {
+  opacity: 1;
 }
 
 .has-dropdown .navbar-dropdown .navbar-item img {
@@ -17228,7 +17260,7 @@ label.panel-block:hover {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #dbdbdb;
+  border: 3px solid #dbdbdb;
   background-color: #2F5A64;
 }
 
@@ -17662,6 +17694,31 @@ hr {
   top: 100px !important;
   left: auto !important;
   right: 50px !important;
+}
+
+.user-widget {
+  padding-top: 0;
+  border: none;
+}
+
+.user-widget .dropdown-item,
+.user-widget .dropdown .dropdown-menu .has-link a,
+.dropdown .dropdown-menu .has-link .user-widget a {
+  padding: 0;
+}
+
+.user-widget .hero-body {
+  padding: 1.3rem 4rem 1.3rem 1rem;
+}
+
+.user-widget .user-avatar {
+  max-height: 3.5rem;
+  max-width: 3.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  background-color: #2F5A64;
+  border: 2px solid white;
 }
 
 .side-menu {

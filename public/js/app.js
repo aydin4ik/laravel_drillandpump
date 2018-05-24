@@ -44290,6 +44290,15 @@ for (var index = 0; index < accordions.length; index++) {
     };
 }
 
+var dropdowns = document.getElementsByClassName('has-dropdown');
+var navbarUser = document.getElementsByClassName('navbar-user');
+
+for (var _index = 0; _index < dropdowns.length; _index++) {
+    dropdowns[_index].onclick = function (e) {
+        this.classList.toggle('is-active');
+    };
+}
+
 /***/ }),
 /* 41 */
 /***/ (function(module, exports) {

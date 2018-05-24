@@ -24,3 +24,25 @@
     }
 }
 
+.user-widget{
+    padding-top: 0;
+    border: none;
+
+    .dropdown-item{
+        padding: 0;
+    }
+
+    .hero-body{
+        padding:  1.3rem 4rem 1.3rem 1rem;
+    }
+
+    .user-avatar{
+        max-height: 3.5rem;
+        max-width: 3.5rem;
+        object-fit: cover;
+        border-radius: 50%;
+        background-color: $primary;
+        border: 2px solid white;
+        
+    }
+}
