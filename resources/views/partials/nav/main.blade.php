@@ -49,28 +49,19 @@
             <a class="navbar-item" href="#">{{__('navbar.contacts')}}</a>
 
             <div class="navbar-item has-dropdown">
-                <a class="navbar-link navbar-lang" href="#">
+                <a class="navbar-link navbar-lang">
                     <img class="m-r-10" src="{{asset('images/lang/' . App::getLocale() . '.png')}}" alt="{{App::getLocale()}}">                    
                     {{App::getLocale()}}..
                     <i class="m-l-5 fa fa-angle-down" aria-hidden="true"></i>                    
                 </a>
-                <div class="navbar-dropdown has-text-weight-normal">
-                    <a class="navbar-item" href="locale/en">
-                    <img class="m-r-10" src="{{asset('images/lang/en.png')}}" alt="Select English">
-                    English
+                <div class="navbar-dropdown has-text-weight-normal navbar-lang">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a class="navbar-item" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    <img class="m-r-10" src="{{asset('images/lang/' . $localeCode . '.png')}}" alt="{{$properties['native']}}">
+                    {{ $properties['native'] }}
                     </a>
-                    <a class="navbar-item" href="locale/ru">
-                    <img class="m-r-10" src="{{asset('images/lang/ru.png')}}" alt="Select English">
-                    Русский
-                    </a>
-                    <a class="navbar-item" href="locale/az">
-                    <img class="m-r-10" src="{{asset('images/lang/az.png')}}" alt="Select English">                    
-                    Azərbaycanca
-                    </a>
-                    <a class="navbar-item" href="locale/ar">
-                    <img class="m-r-10" src="{{asset('images/lang/ar.png')}}" alt="Select English">
-                    عربى
-                    </a>                                   
+                    @endforeach
+                                            
                 </div>
             </div>
         
@@ -84,7 +75,7 @@
                 <a class="navbar-item" href="{{route('register')}}">{{__('navbar.register')}}</a>
             @else
             <div class="navbar-item has-dropdown">
-                <a class="navbar-link" href="#">
+                <a class="navbar-link">
                     @if (file_exists('images/'. Auth::user()->email .'.png'))
                         <img src="{{asset('images/' . Auth::user()->email . '.png')}}" alt="{{Auth::user()->name}}" class="m-r-10 user-avatar">
                     @else
