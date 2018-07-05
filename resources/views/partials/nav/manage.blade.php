@@ -14,7 +14,7 @@
         <ul class="menu-list">
             <li><a href="{{route('users.index')}}" class="{{Nav::isResource('users')}}">{{__('manage.manageUsers')}}</a></li>
             <li>
-                <a class="has-submenu {{Nav::hasSegment(['roles', 'permissions'], 2)}}">{{__('manage.roles&permissions')}}</a>
+                <a class="has-submenu {{Nav::hasSegment(['roles', 'permissions'], 3)}}">{{__('manage.roles&permissions')}}</a>
                 <ul class="submenu">
                     <li><a href="{{route('roles.index')}}" class="{{Nav::isResource('roles')}}">{{__('manage.roles')}}</a></li>
                     <li><a href="{{route('permissions.index')}}" class="{{Nav::isResource('permissions')}}">{{__('manage.permissions')}}</a></li>

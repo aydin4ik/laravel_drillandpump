@@ -5,13 +5,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import Form from './core/Form';
+window.Form = Form;
+
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 import Buefy from 'buefy';
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: 'fa'
+});
 
 // Parallax-js
 import Parallax from 'parallax-js';

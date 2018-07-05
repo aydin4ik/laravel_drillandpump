@@ -22,7 +22,8 @@ return [
     'confirmPassword' => 'Confirm Password',
     'remember' => 'Remember Me',
     'signIn' => 'Log In',
-    'createAccount' => 'Create an Account',
+    'create' => 'Create Account',
+    'createAccount' => 'Create new Account',
     'forgotPassword' => 'Forgot your password?',
     'alreadyHave' => 'Already have an Account?',
     

@@ -15,51 +15,30 @@
                     </div>
                     
     
-                <form action="{{route('register')}}" method="POST" role="form">
+                <form action="{{route('register')}}" method="POST" role="form" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
                     @csrf
-                    <div class="field">
-                        <label for="email" class="label">{{ __('auth.email') }}</label>
-                        <p class="control">
-                            <input class="input {{$errors->has('email') ? 'is-danger' : ''}}" value="{{old('email')}}" type="text" name="email" id="email" placeholder="name@example.com" autofocus>
-                        </p>
-                        @if($errors->has('email'))
-                            <p class="help is-danger">{{$errors->first('email')}}</p>
-                        @endif
-                    </div>
+                    <b-field label="{{ __('auth.email') }}" :type="form.errors.has('email') ? 'is-danger' : ''" :message="form.errors.get('email')">
+                        <b-input v-model="form.email.val" name="email"></b-input>
+                    </b-field>
 
-                    <div class="field">
-                        <label for="name" class="label">{{ __('auth.name') }}</label>
-                        <p class="control">
-                            <input class="input {{$errors->has('name') ? 'is-danger' : ''}}" value="{{old('name')}}" type="text" name="name" id="name">
-                        </p>
-                        @if($errors->has('name'))
-                            <p class="help is-danger">{{$errors->first('name')}}</p>
-                        @endif
-                    </div>
-    
-                    <div class="field">
-                        <label for="password" class="label">{{ __('auth.password') }}</label>
-                        <p class="control">
-                            <input class="input {{$errors->has('password') ? 'is-danger' : ''}}" type="password" name="password" id="password">
-                        </p>
-                        @if($errors->has('password'))
-                            <p class="help is-danger">{{$errors->first('password')}}</p>
-                        @endif
-                    </div>
+                    <b-field label="{{ __('auth.name') }}" :type="form.errors.has('name') ? 'is-danger' : ''" :message="form.errors.get('name')">
+                        <b-input v-model="form.name" name="name"></b-input>
+                    </b-field>
+                        
+                    <b-field label="{{ __('auth.password') }}" :message="form.errors.get('password')" :type="type">
+                        <b-input v-model="form.password" name="password" type="password"></b-input>
+                    </b-field>
 
-                    <div class="field">
-                        <label for="password-confirm" class="label">{{ __('auth.confirmPassword') }}</label>
-                        <p class="control">
-                            <input class="input {{$errors->has('password') ? 'is-danger' : ''}}" type="password" name="password_confirmation" id="password-confirm">
-                        </p>
-                        @if($errors->has('password'))
-                            <p class="help is-danger">{{$errors->first('password_confirmation')}}</p>
-                        @endif
-                    </div>
+                    <b-field label="{{ __('auth.confirmPassword') }}" :type="type" :message="form.errors.get('password')">
+                        <b-input v-model="form.password_confirmation" name="password_confirmation" type="password"></b-input>
+                    </b-field>
+
+                    
     
                     
                     <div class="field">
-                        <button class="m-t-10 button is-primary is-outlined is-full-width">{{ __('navbar.register') }}</button>
+                        <button class="button is-primary is-medium is-fullwidth" :class="form.loading ? 'is-loading' : ''" :disabled="form.errors.any()">{{ __('auth.create') }}</button>
+                        
                     </div>
                 </form>
     
@@ -73,77 +52,55 @@
         </div>
     </div>
 
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+@endsection
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+@section('scripts')
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            form: new Form({
+                email: {
+                    val: '',
+                    type: '',
+                },
+                name: '',
+                password: '',
+                password_confirmation: ''
+            }),
+            type: ''
+        },
+        methods: {
+            onSubmit() {
+                this.form.post('register')
+                    .then(response => this.form.redirect('home'));
+            },
+            onConfirm() {
+                return this.form.password == this.form.password_confirmation;
+            }            
+        },
+        watch: {
+            'form.password'() {
+                if(this.form.password == ""){
+                    return
+                }
+                this.type = 'is-danger';
+                if( this.form.password == this.form.password_confirmation){
+                    this.type = 'is-success';
+                }
+            },
+            'form.password_confirmation' () {
+                if(this.form.password_confirmation == ""){
+                    return
+                }
+                this.type = 'is-danger';
+                if(this.form.password == this.form.password_confirmation){
+                    this.type = 'is-success';
+                }
+            }
+        }
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
+    })
+</script>
+    
 @endsection
