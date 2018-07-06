@@ -14,8 +14,12 @@
 // Buefy
 @import "node_modules/buefy/src/scss/buefy";
 
+// Swiper Slider
+@import "node_modules/swiper/dist/css/swiper";
+
 // Custom SASS Pages
 @import "overrides";
 @import "helpers";
 @import "styles";
 @import "manage";
+@import "loader";

@@ -18,9 +18,8 @@ Route::group(
     function()
     {
         /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-        Route::get('/', function () {
-            return view('welcome');
-        });
+        Route::get('/', 'WelcomeController@index')->name('homepage');
+
         
         Auth::routes();
         
@@ -30,6 +29,7 @@ Route::group(
             Route::resource('/users', 'UserController');
             Route::resource('/permissions', 'PermissionController', ['except' => 'destroy']);
             Route::resource('/roles', 'RoleController', ['except' => 'destroy']);
+            Route::resource('/slides', 'SlideController');
         
         });
         

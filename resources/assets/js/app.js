@@ -8,7 +8,7 @@
 import Form from './core/Form';
 window.Form = Form;
 
-require('./bootstrap');
+import './bootstrap';
 
 window.Vue = require('vue');
 
@@ -21,21 +21,44 @@ Vue.use(Buefy, {
 // Parallax-js
 import Parallax from 'parallax-js';
 
-require('./manage');
+
+
+import './manage';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('file-upload', require('./components/FileUpload.vue'));
+Vue.component('slide-content-lang', require('./components/SlideContentLang.vue'));
 
-var scene = document.getElementById('scene');
-if( scene != null){
-  var parallaxInstance = new Parallax(scene, {
-    relativeInput: true,
-    hoverOnly: true,
-  });
+var scene = document.getElementsByClassName('slide');
+for (let index = 0; index < scene.length; index++) {
+  const element = scene[index];
+
+  if( element != null){
+    var parallaxInstance = new Parallax(element, {
+      relativeInput: true,
+      hoverOnly: true,
+    });
+  }
+  
+  
 }
 
 
+// custom libraries
+import Swiper from 'swiper';
+
+var mySwiper = new Swiper ('.swiper-container', {
+  // Optional parameters
+  loop: false,
+  autoplay: {
+    delay: 5000,
+  },
+});
+
+
+import moment from 'moment';
+moment().format();

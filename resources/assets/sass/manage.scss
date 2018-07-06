@@ -37,3 +37,61 @@
     background-color: $primary;
     color: white;
 }
+
+
+.slide-manage{
+    &.disabled{
+        img{
+            opacity: 0.3;
+        }
+    }
+    position: relative;
+
+
+    img{
+        max-height: 10rem;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    img.item{
+        max-width: 7rem;
+        max-height: 7rem;
+        position: absolute;
+        left: 21%;
+        top: 8%;
+    }
+    
+}
+
+.slide-body{
+    .title, .subtitle{
+        text-transform: capitalize;
+    }
+}
+
+.publish-widget{
+    .title,.subtitle{
+        margin: 10px;
+        padding: 5px;
+        display: block;
+    }
+    .area{
+        border-bottom: 1px solid whitesmoke;
+        margin: 10px 0;
+        padding: 2px 0;
+    }
+    .author{        
+        img{
+            max-width: 3rem;
+            background-color: $primary;
+            border-radius: 50%;
+        }
+    }
+    .status{
+        .icon{
+            padding: 15px
+        }
+        
+    }
+}

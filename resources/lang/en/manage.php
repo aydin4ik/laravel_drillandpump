@@ -23,5 +23,6 @@ return [
     'roles&permissions' => 'Roles & Permissions',
     'roles' => 'Roles',
     'permissions' => 'Permissions',
+    'slides' => 'Slides'
 
 ];
