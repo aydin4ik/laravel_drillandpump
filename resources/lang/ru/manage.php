@@ -23,5 +23,6 @@ return [
     'roles&permissions' => 'Роли и права доступа',
     'roles' => 'Роли',
     'permissions' => 'Права доступа',
+    'slides' => 'Слайды'
 
 ];

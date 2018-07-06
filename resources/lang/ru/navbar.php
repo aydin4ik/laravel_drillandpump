@@ -18,5 +18,9 @@ return [
     'contacts' => 'Контакты',
     'login' => 'Вход',
     'register' => 'Регистрация',
+    'profile' => 'Профиль',
+    'notifications' => 'Уведомления',
+    'manage' => 'Управления',
+    'logout' => 'Выход',
 
 ];

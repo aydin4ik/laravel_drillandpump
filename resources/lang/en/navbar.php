@@ -18,5 +18,9 @@ return [
     'contacts' => 'Contact Us',
     'login' => 'Login',
     'register' => 'Sign Up',
+    'profile' => 'Profile',
+    'notifications' => 'Notifications',
+    'manage' => 'Manage',
+    'logout' => 'Logout',
 
 ];

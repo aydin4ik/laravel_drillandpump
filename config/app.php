@@ -150,7 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Dimsav\Translatable\TranslatableServiceProvider::class,
         /*
          * Application Service Providers...
          */
