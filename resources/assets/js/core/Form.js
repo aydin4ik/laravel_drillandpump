@@ -35,7 +35,12 @@ class Form {
      */
     reset() {
         for (const field in this.originalData) {
-            this[field] = '';
+            if(!Array.isArray(this[field])){
+                this[field] = '';
+            }else{
+                this[field] = [];
+            }
+            
         }
         this.errors.clear();
     }

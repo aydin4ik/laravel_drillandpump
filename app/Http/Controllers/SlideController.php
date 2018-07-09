@@ -37,21 +37,27 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'fields.*.content' => 'required',
+            'fields.*.title' => 'required',
+        ]);
+
         $slide = new Slide();
         $slide->enabled = true;
         $slide->save(); 
 
-        $locales = explode("," , $request->locales);
-        foreach ($locales as $locale) {
-            $slide->translateOrNew($locale)->title = $request->input('title_'. $locale);
-            $slide->translateOrNew($locale)->content = $request->input('content_'. $locale);
+        foreach ($request->fields as $field) {
+            $slide->translateOrNew($field['locale'])->title = $field['title'];
+            $slide->translateOrNew($field['locale'])->content = $field['content'];
         }
 
         if($slide->save()){
-            return redirect()->route('slides.index');
+            return [
+                'redirectTo' => 'slides.index',
+                'message' => 'slide has been saved',
+            ];
         }else{
-            Session::flash('danger', 'Sorry a problem occured while creating this slide');
-            return redirect()->route('slides.create');
+            return $redirectTo = 'slides.create';
         }
     }
 

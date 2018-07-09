@@ -21,7 +21,9 @@
                     <img src="{{asset('images/slide/slide-background.jpg')}}" alt="">            
                     <img class="item" src="{{asset('images/slide/drillbit.png')}}" alt="">
                     <b-switch 
-                        size="is-small" 
+                        size="is-small"
+                        true-value="1"
+                        false-value="0"
                         v-model="slide.enabled">
                     </b-switch>
                     <span 
@@ -63,6 +65,7 @@
 <script>
     var app = new Vue({
     el: '#app',
+
     data: {
         slides: @json($slides),
     },

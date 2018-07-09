@@ -68,6 +68,7 @@
     .title, .subtitle{
         text-transform: capitalize;
     }
+
 }
 
 .publish-widget{
@@ -75,6 +76,9 @@
         margin: 10px;
         padding: 5px;
         display: block;
+    }
+    .subtitle{
+        font-size: 0.55rem;
     }
     .area{
         border-bottom: 1px solid whitesmoke;

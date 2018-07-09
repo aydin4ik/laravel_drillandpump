@@ -10,63 +10,56 @@
             </div>
         </div>
 
-        <form action="{{route('slides.store')}}" method="POST" class="form">
+        <form action="{{route('slides.store')}}" method="POST" class="form" @submit.prevent="onSubmit" @keydown="form.errors.clear('fields.' + $event.target.attributes.index.value + '.' + $event.target.name)">
             @csrf
-            <input type="hidden" v-model="locale.selected" name="locales">
             <div class="columns">
                 <div class="column">
-                    <div class="box" v-for="(field, index) in fields">
-                        <div class="fields">
-                            <b-field>
-                                <b-select 
-                                    placeholder="Select Language"
-                                    expanded
-                                    v-model="field.locale"
-                                    required>
-                                    <option 
-                                        v-for="(locale, key) in locale.supported"
-                                        :value ="key"
-                                        :key ="locale.regional">
-                                        @{{ locale.name }}
-                                    </option>
-                                </b-select>                        
-                            </b-field>
-                            <b-field label="Title">
-                                <b-input 
-                                    placeholder="type your title here" 
-                                    v-model="field.title" 
-                                    :name="'title_' + field.locale"                                      
-                                    :disabled="field.locale == null"
-                                    required>
-                                </b-input>
-                            </b-field>
-                            <b-field label="Content">
-                                <b-input 
-                                    type="textarea" 
-                                    placeholder="type your content here" 
-                                    v-model="field.content" 
-                                    :name="'content_' + field.locale"  
-                                    :disabled="field.locale == null"
-                                    required>
-                                </b-input>
-                            </b-field>
-                        </div>
-                        
-                        <button 
-                            class="button is-fullwidth is-danger is-outlined m-t-15" 
-                            v-if="field.remove"
-                            @click.prevent="removeFields(index)">
-                            <span class="icon">
-                                <i class="fa fa-times"></i>
-                            </span>
-                            <span>Remove this fields</span>
-                        </button>
-                            
+                    <div class="box" v-for="(field, index) in form.fields">
+                        <b-field>
+                            <b-select 
+                                placeholder="Select Language"
+                                expanded
+                                v-model="field.locale"
+                                required>
+                                <option 
+                                    v-for="(locale, key) in locale.supported"
+                                    :value ="key"
+                                    :key ="locale.regional">
+                                    @{{ locale.name }}
+                                </option>
+                            </b-select>                        
+                        </b-field>
+                        <b-field
+                            :message="form.errors.get('fields.' + index + '.title')"
+                            :type="form.errors.has('fields.' + index + '.title') ? 'is-danger' : ''" 
+                            label="Title">
+                            <b-input 
+                                placeholder="type your title here" 
+                                v-model="field.title" 
+                                name="title"                                      
+                                :disabled="field.locale == null"
+                                :index="index"
+                                >
+                            </b-input>
+                        </b-field>
+                        <b-field
+                            :message="form.errors.get('fields.' + index + '.content')"
+                            :type="form.errors.has('fields.' + index + '.content') ? 'is-danger' : ''" 
+                            label="Content">
+                            <b-input 
+                                type="textarea" 
+                                placeholder="type your content here" 
+                                v-model="field.content" 
+                                name="content"  
+                                :disabled="field.locale == null"
+                                :index="index"
+                                >
+                            </b-input>
+                        </b-field>
                     </div>
                     <button 
                         class="button is-fullwidth m-t-15" 
-                        @click.prevent="addFields()"
-                        :disabled="addButtonStatus">
+                        @click.prevent="addFields()">
                         <span class="icon">
                             <i class="fa fa-plus"></i>
                         </span>
@@ -74,11 +67,11 @@
                     </button>
                 </div>
                 <div class="column is-one-quarter">
-                    <div class="box publish-widget">
+                    <div class="box publish-widget" :class="this.form.loading ? 'is-loading' : ''">
                         <div class="author area">
                             <img class="is-pulled-left m-r-10" src="{{asset('images/user.png')}}" alt="">
-                            <span class="title is-7">Aydin</span>
-                            <span class="subtitle is-7">aydin4ik88@gmail.com</span>
+                            <span class="title is-7">{{Auth::user()->name}}</span>
+                            <span class="subtitle is-7">{{Auth::user()->email}}</span>
                         </div>
                         <div class="status area" v-if="draft.saved">
                             <span class="icon is-pulled-left m-r-15 m-t-15 is-size-3 has-text-primary">
@@ -89,7 +82,8 @@
                         </div>
                         <div class="submit">
                             <button class="button is-fullwidth" @click.prevent="saveDraft()">Save Draft</button>
-                            <button class="button is-fullwidth is-primary m-t-5">Create Slide</button>
+                            <button
+                                class="button is-fullwidth is-primary m-t-5">Create Slide</button>
                         </div>
                         
                     </div>
@@ -104,81 +98,51 @@
     
 @endsection
  @section('scripts')
- <script>
+<script>
     var app = new Vue({
-        el: "#app",
+        el: '#app',
         data: {
-            addButtonStatus: false,
-            fields: [
-                {
-                  title: "",
-                  content: "",
-                  locale: null,
-                  add: true,
-                  remove: false  
-                }
-            ],
-            locale: {
-                supported : @json(LaravelLocalization::getSupportedLocales()),
-                available : [],
-                selected: [],
-            },
             draft: {
                 saved: false,
                 time: "",
-            },            
+            },
+            locale: {
+                supported : @json(LaravelLocalization::getSupportedLocales()),
+            }, 
+            form: new Form({
+                fields: [
+                    {
+                    title: '',
+                    content: '',
+                    locale: null
+                    }
+                ],
+            })
         },
         methods: {
-            addFields() {
-                if(this.fields.length == _.size(this.locale.supported ) - 1) {
-                    this.addButtonStatus = true;
-                }else{
-                    this.addButtonStatus = false;
-
-                }
-                    var elem = document.createElement('div');
-                    elem.className ='fields';
-                    this.fields.push({
-                        title: "",
-                        content: "",
-                        locale: null,
-                        add: false,
-                        remove: true
+            onSubmit(){
+                this.form.post(route('slides.store'))
+                    .then(response => {
+                        this.addFields();
+                        this.$snackbar.open({
+                            message: 'Slide has been saved',
+                            type: 'is-success',
+                            actionText: 'view',
+                            onAction: () => {this.form.redirectTo(route('slides.index'))}
+                        });
                     });
-                
-                
             },
-            removeFields(index) {
-                this.fields.splice(index, 1);
-                if(this.fields.length < _.size(this.locale.supported )) {
-                    this.addButtonStatus = false;
-                }
-
+            addFields(){
+                this.form.fields.push({
+                    title: '',
+                    content: '',
+                    locale: null
+                })
                 
-            },
-            saveDraft() {
-                this.draft.time = new Date();
-                this.draft.saved = true;
-            }       
-        },
-        watch: {
-            fields: {
-                handler: function (val, oldval) {
-                    this.fields.forEach(field => {
-                        if(field.locale === null){
-                            return
-                        }
-                        if(!this.locale.selected.includes(field.locale)){
-                            this.locale.selected.push(field.locale.slice(0 , 2));                        
-                        }
-                    });
-                },
-                deep: true
-            }
+            },            
         }
-        
-        
     })
- </script>
+    
+</script>
      
  @endsection
