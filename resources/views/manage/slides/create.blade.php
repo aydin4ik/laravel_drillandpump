@@ -19,10 +19,11 @@
                             <b-select 
                                 placeholder="Select Language"
                                 expanded
+                                :disabled="field.disabled"
                                 v-model="field.locale"
                                 required>
                                 <option 
-                                    v-for="(locale, key) in locale.supported"
+                                    v-for="(locale, key) in field.locales"
                                     :value ="key"
                                     :key ="locale.regional">
                                     @{{ locale.name }}
@@ -56,15 +57,28 @@
                                 >
                             </b-input>
                         </b-field>
+                        <b-field>
+                            <button 
+                                class="button is-fullwidth is-danger is-outlined m-t-15" 
+                                v-if="field.remove"
+                                @click.prevent="removeFields(index)">
+                                <span class="icon"><i class="fa fa-times"></i></span>
+                                <span>Remove this fields</span>
+                            </button>
+                        </b-field>
                     </div>
-                    <button 
-                        class="button is-fullwidth m-t-15" 
-                        @click.prevent="addFields()">
-                        <span class="icon">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span>Add new fields</span>
-                    </button>
+                    <b-field>
+                        <button
+                            :disabled="this.form.fields[this.localeIndex].locale == null ? true : false"
+                            class="button is-fullwidth" 
+                            @click.prevent="addFields()">
+                            <span class="icon">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            <span>Add new fields</span>
+                        </button>
+                    </b-field>
+                    
                 </div>
                 <div class="column is-one-quarter">
                     <div class="box publish-widget" :class="this.form.loading ? 'is-loading' : ''">
@@ -102,28 +116,23 @@
     var app = new Vue({
         el: '#app',
         data: {
+            localeIndex: 0,
             draft: {
                 saved: false,
                 time: "",
-            },
-            locale: {
-                supported : @json(LaravelLocalization::getSupportedLocales()),
-            }, 
+            },            
             form: new Form({
-                fields: [
-                    {
-                    title: '',
-                    content: '',
-                    locale: null
-                    }
-                ],
+                fields: [],
             })
         },
+        created: function() {
+            this.setInitialFields()
+        },
         methods: {
-            onSubmit(){
+            onSubmit() {
                 this.form.post(route('slides.store'))
                     .then(response => {
-                        this.addFields();
+                        this.setInitialFields();
                         this.$snackbar.open({
                             message: 'Slide has been saved',
                             type: 'is-success',
@@ -132,14 +141,40 @@
                         });
                     });
             },
-            addFields(){
+            setInitialFields(){
+                this.localeIndex = 0;
+                this.form.fields.push({                    
+                    title: '',
+                    content: '',
+                    locale: null,
+                    locales: @json(LaravelLocalization::getSupportedLocales()),
+                    disabled: false                    
+                });
+            },
+            addFields() {
+                this.form.fields[this.localeIndex].disabled = true;
+                this.form.fields[this.localeIndex].remove = false;
                 this.form.fields.push({
                     title: '',
                     content: '',
-                    locale: null
-                })
-                
-            },            
+                    locale: null,
+                    locales: this.getLocales(),
+                    remove: true,
+                    disabled: false
+                });
+            },
+            removeFields(index) {
+                this.localeIndex -= 1;
+                this.form.fields[this.localeIndex].disabled = false;
+                this.form.fields.splice(index, 1);
+            },
+            getLocales() {
+                    var locales = Object.assign({}, this.form.fields[this.localeIndex].locales);
+                    delete locales[this.form.fields[this.localeIndex].locale];
+                    this.localeIndex += 1;
+                    return locales;
+            }
+       
         }
     })
     
