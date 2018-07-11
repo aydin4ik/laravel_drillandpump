@@ -19,6 +19,12 @@ class SlideController extends Controller
         return view('manage.slides.index')->withSlides($slides);
     }
 
+    public function fetch()
+    {
+        $slides = Slide::all();
+        return $slides;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -92,7 +98,9 @@ class SlideController extends Controller
      */
     public function update(Request $request, Slide $slide)
     {
-        //
+        $slide = Slide::findOrFail($slide['id']);
+        $slide->enabled = $request->slide['enabled'];
+        $slide->save();
     }
 
     /**
@@ -101,8 +109,9 @@ class SlideController extends Controller
      * @param  \App\Slide  $slide
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slide $slide)
+    public function destroy(Request $request, Slide $slide)
     {
-        //
+        $slide = Slide::findOrFail($slide['id']);
+        $slide->delete();
     }
 }

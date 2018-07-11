@@ -18350,6 +18350,14 @@ hr {
   padding-right: 100px !important;
 }
 
+.clearfix {
+  clear: both;
+}
+
+hr.card-divider {
+  margin: 0;
+}
+
 .slide {
   height: 550px;
   overflow: hidden;
@@ -18453,6 +18461,10 @@ hr {
   color: white;
 }
 
+.slide-content {
+  padding: 0.7rem;
+}
+
 .slide-manage {
   position: relative;
 }
@@ -18469,11 +18481,11 @@ hr {
 }
 
 .slide-manage img.item {
-  max-width: 7rem;
-  max-height: 7rem;
+  max-width: 9rem;
+  max-height: 9rem;
   position: absolute;
   left: 21%;
-  top: 8%;
+  top: 5%;
 }
 
 .slide-body .title,

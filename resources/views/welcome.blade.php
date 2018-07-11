@@ -22,7 +22,7 @@
                 <h1 class="is-size-2 is-uppercase has-text-weight-light">{{$slide->content}}</h1>
 
                 <hr>
-                <a href="#" class="button is-primary is-outlined is-uppercase">Ətraflı öyrən</a>
+                <a href="#" class="button is-primary is-outlined is-uppercase is-small">Ətraflı öyrən</a>
             </div>
         </div>
         @endforeach

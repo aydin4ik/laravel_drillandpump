@@ -29,6 +29,7 @@ Route::group(
             Route::resource('/users', 'UserController');
             Route::resource('/permissions', 'PermissionController', ['except' => 'destroy']);
             Route::resource('/roles', 'RoleController', ['except' => 'destroy']);
+            Route::get('/slides/fetch ', 'SlideController@fetch')->name('slides.fetch');
             Route::resource('/slides', 'SlideController');
         
         });

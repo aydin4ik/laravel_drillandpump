@@ -69,14 +69,16 @@
                     </div>
                     <b-field>
                         <button
-                            :disabled="this.form.fields[this.localeIndex].locale == null ? true : false"
-                            class="button is-fullwidth" 
-                            @click.prevent="addFields()">
+                        v-if="this.form.fields.length != _.size(this.form.fields[0].locales)"
+                        :disabled="this.form.fields[this.localeIndex].locale == null ? true : false"
+                        class="button is-fullwidth" 
+                        @click.prevent="addFields()">
                             <span class="icon">
                                 <i class="fa fa-plus"></i>
                             </span>
                             <span>Add new fields</span>
                         </button>
+                        
                     </b-field>
                     
                 </div>
