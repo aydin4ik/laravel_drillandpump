@@ -66,7 +66,7 @@
                         <hr class="card-divider">
 
                         <div class="slide-actions">
-                            <h1 class="subtitle is-pulled-left"><i class="fa fa-user"></i>  Superadministrator</h1>
+                            <h1 class="subtitle is-pulled-left"><i class="fa fa-user"></i> @{{slide.user.name}}</h1>
                             <button class="button is-light is-small is-pulled-right m-l-5" @click="confirmDelete(slide)"><i class="fa fa-trash"></i></button>
                             <a :href="slide.href" class="button is-light is-small is-pulled-right"><i class="fa fa-pencil"></i></a>
                             <div class="clearfix"></div>

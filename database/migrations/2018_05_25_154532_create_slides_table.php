@@ -16,6 +16,7 @@ class CreateSlidesTable extends Migration
         Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('enabled');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
 
@@ -39,7 +40,7 @@ class CreateSlidesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slides');
         Schema::dropIfExists('slide_translations');
+        Schema::dropIfExists('slides');
     }
 }

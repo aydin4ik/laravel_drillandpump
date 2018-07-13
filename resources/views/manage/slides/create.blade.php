@@ -125,6 +125,7 @@
             },            
             form: new Form({
                 fields: [],
+                user: @json(Auth::user())
             })
         },
         created: function() {

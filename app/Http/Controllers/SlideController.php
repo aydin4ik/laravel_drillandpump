@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Slide;
+use App\User;
 use Illuminate\Http\Request;
 use LaravelLocalization;
 
@@ -21,7 +22,7 @@ class SlideController extends Controller
 
     public function fetch()
     {
-        $slides = Slide::all();
+        $slides = Slide::with('User')->get();
         return $slides;
     }
 
@@ -50,6 +51,7 @@ class SlideController extends Controller
 
         $slide = new Slide();
         $slide->enabled = true;
+        $slide->user_id = $request->user['id'];
         $slide->save(); 
 
         foreach ($request->fields as $field) {
