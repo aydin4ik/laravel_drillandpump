@@ -14,60 +14,66 @@
     <hr>
 
     <div class="columns is-multiline" :class="loading ? 'is-loading' : ''" style="min-height: 400px">
+        <div class="column is-one-quarter">
+            <div class="slide-add is-size-1">
+                <a href="{{route('slides.create')}}">
+                    <span class="icon has-text-primary">
+                        <i class="fa fa-plus-circle"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
         <div class="column is-one-quarter" v-for="slide in slides">
             <div class="card">
-                <div class="slide-manage" :class="slide.enabled == 0 ? 'disabled' : ''">
-                    <img src="{{asset('images/slide/slide-background.jpg')}}" alt="">            
-                    <img class="item" src="{{asset('images/slide/drillbit.png')}}" alt="">
-                </div>
-                <div class="slide-status slide-content">
-                    <h5 class="is-size-7 is-pulled-left" v-text="slide.enabled == 0 ? 'Enable Slide' : 'Disable Slide'"></h5>
-                    <b-switch 
-                        class="is-pulled-right"
-                        @input="changeStatus(slide)"
-                        size="is-small"
-                        true-value="1"
-                        false-value="0"
-                        v-model="slide.enabled">
-                    </b-switch>
-                    <div class="clearfix"></div>
-                </div>
-                <hr class="card-divider">
-                <div class="slide-content has-text-centered" style="min-height: 5rem">
-                    <h1 class="title is-6">@{{slide.title}}</h1>
-                    <h1 class="subtitle is-7">@{{slide.content}}</h1>
-                </div>
-                <hr class="card-divider">
-                <div class="slide-content">                    
-                        <div class="field is-grouped is-grouped-multiline">
-                                <div class="control">
-                                    <div class="tags has-addons">
-                                    <span class="tag is-danger"><i class="fa fa-user-o"></i></span>
-                                    <span class="tag is-light">Aydin</span>
-                                    </div>
-                                </div>                                  
-                                <div class="control">
-                                    <div class="tags has-addons">
-                                    <span class="tag is-danger"><i class="fa fa-clock-o"></i></span>
-                                    <span class="tag is-light is-fullwidth">@{{slide.created_at}}</span>
-                                    </div>
-                                </div>
-                                <div class="control">
-                                    <div class="tags has-addons">
-                                    <span class="tag is-danger"><i class="fa fa-star-o"></i></span>
-                                    <span class="tag is-light is-fullwidth" v-text="slide.enabled == 0 ? 'Inactive' : 'Active'"></span>
-                                    </div>
-                                </div>
+                <div class="slide-card">
+                    <div class="slide-head" :class="slide.enabled == 0 ? 'disabled' : ''">
+                        <div class="slide-media">
+                            <figure class="image is-16by9">
+                                <img src="{{asset('images/slide/slide-background.jpg')}}" alt="">            
+                            </figure>
+                            <img class="item" src="{{asset('images/slide/drillbit.png')}}" alt="">
                         </div>
-                </div>
-                <hr class="card-divider">
-                <div class="slide-content">
-                    <a href="#" class="button is-primary  is-fullwidth is-small">Edit</a>
-                    <button class="button is-danger  is-fullwidth is-small m-t-5" @click="confirmDelete(slide)">Delete</button>
-                </div>                             
-                               
-                
+                    </div>
+                    <div class="slide-body">
+                        <div class="slide-content">
+                            <h1 class="title">@{{slide.title}}</h1>
+                            <h1 class="subtitle">@{{slide.content}}</h1>
+                        </div>
+                        <hr class="card-divider">
+                        <div class="slide-status">
+                                <h1 class="subtitle is-pulled-left" v-text="slide.enabled == 0 ? 'Enable Slide' : 'Disable Slide'"></h1>
+                                <b-switch 
+                                    class="is-pulled-right"
+                                    @input="changeStatus(slide)"
+                                    size="is-small"
+                                    true-value="1"
+                                    false-value="0"
+                                    v-model="slide.enabled">
+                                </b-switch>
+                                <div class="clearfix"></div>
+                        </div>
 
+                        <hr class="card-divider">
+
+                        <div class="slide-translations">
+                            <h1 class="subtitle is-pulled-left">show translations <i class="fa fa-caret-down"></i></h1>
+                            <div class="clearfix"></div>
+                            <div class="translations">
+                                <h1 class="subtitle" v-for="translation in slide.translations">@{{translation.content}}</h1>
+                            </div>
+                        </div>
+
+                        <hr class="card-divider">
+
+                        <div class="slide-actions">
+                            <h1 class="subtitle is-pulled-left"><i class="fa fa-user"></i>  Superadministrator</h1>
+                            <button class="button is-light is-small is-pulled-right m-l-5" @click="confirmDelete(slide)"><i class="fa fa-trash"></i></button>
+                            <a :href="slide.href" class="button is-light is-small is-pulled-right"><i class="fa fa-pencil"></i></a>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -86,18 +92,24 @@
         loading: false,
     },
     mounted: function() {
-        this.fetchSlides()
+        this.fetchSlides();
     },
     methods: {
+        setHref(){
+            this.slides.forEach(element => {
+                element.href = route('slides.edit', element.id);                
+            });
+        },
         fetchSlides() {
             this.loading = true;
             axios.get(route('slides.fetch'))
                 .then((response)  =>  {
                     this.loading = false;
                     this.slides = response.data;
+                    this.setHref();
                 }, (error)  =>  {
                     this.loading = false;
-                })
+                });
         },
         changeStatus(slide){
             this.loading = true;
@@ -113,11 +125,10 @@
         },
         confirmDelete(slide) {
             this.$dialog.confirm({
-                title: 'Deleting Slide',
                 type: 'is-danger',
-                message: 'Are you sure you want to <b>delete</b> ' + slide.title + '? This action cannot be undone.',
+                size: 'is-small',
+                message: 'Are you sure you want to delete slide "<b> ' + slide.title + ' </b>" ? This action cannot be undone.',
                 confirmText: 'Delete Slide',
-                hasIcon: true,
                 onConfirm: () => this.deleteSlide(slide)
             });
 

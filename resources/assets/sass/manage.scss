@@ -1,3 +1,5 @@
+@import 'slide/card';
+
 .side-menu{
     position: fixed;
     height: 100vh;
@@ -36,42 +38,6 @@
 .menu-list a.is-active{
     background-color: $primary;
     color: white;
-}
-
-.slide-content{
-    padding: 0.7rem;
-    
-}
-.slide-manage{
-    &.disabled{
-        img{
-            opacity: 0.3;
-        }
-    }
-    position: relative;
-
-
-    img{
-        max-height: 10rem;
-        width: 100%;
-        object-fit: cover;
-    }
-
-    img.item{
-        max-width: 9rem;
-        max-height: 9rem;
-        position: absolute;
-        left: 21%;
-        top: 5%;
-    }
-    
-}
-
-.slide-body{
-    .title, .subtitle{
-        text-transform: capitalize;
-    }
-
 }
 
 .publish-widget{

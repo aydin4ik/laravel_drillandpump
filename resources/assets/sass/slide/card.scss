@@ -1,0 +1,79 @@
+
+.slide-add{
+    a{
+        border: 2px dashed lightgray;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 54% 43%;
+
+    }
+
+    a:hover{
+        // border: 1px solid lightgray;
+        background-color: #fff;
+    }
+}
+.slide-card{
+
+
+    .slide-head{
+        .slide-media{
+            position: relative;
+            img.item{
+                max-width: 9rem;
+                max-height: 9rem;
+                position: absolute;
+                left: 23%;
+                top: 2%;
+            }
+        }
+
+        &.disabled {
+            opacity: 0.4;
+        }
+
+    }
+    .slide-body{
+        padding: 1rem;
+
+        hr.card-divider{
+            margin: 0.6rem 0;
+            background-color: whitesmoke;
+        }
+
+        .title{
+            font-size: 0.8rem;
+            text-transform: capitalize;
+            color: $primary;
+            margin: 0;
+            margin-bottom: 0.3rem;
+        }
+        .subtitle{
+            font-size: 0.7rem;
+            text-transform: capitalize;
+            color: gray;
+            margin: 0;
+            margin-bottom: 0.3rem;
+        }
+
+        .slide-translations{
+
+            .button.is-white{
+                color: lightgray;
+            }
+
+            &:hover{
+                .translations{
+                    max-height: 300px;
+                }
+            }
+            .translations{
+                max-height: 0;
+                transition: all 0.4s ease-in-out;
+                overflow: hidden;
+            }
+        }
+
+    }
+}
